@@ -10,6 +10,7 @@ import FormSelect from './FormSelect';
 const required = (value) => (value || typeof value === 'number' ? undefined : 'Required');
 const ssn = (value) => (personnummer.valid(value) ? undefined : 'Invalid ssn'); // for test use 198507099805
 const email = (value) => (isEmail(value) ? undefined : 'Invalid email');
+const phone = (value) => (/^(([+]\d{2}[ ][1-9]\d{0,2}[ ])|([0]\d{1,3}[-]))((\d{2}([ ]\d{2}){2})|(\d{3}([ ]\d{3})*([ ]\d{2})+))$/g.test(value) ? undefined : 'Invalid phone');
 
 const Form = ({
   submitting,
@@ -44,7 +45,7 @@ const Form = ({
             id="phone"
             label="Phone number"
             placeholder="Phone number"
-            validate={[required]}
+            validate={[required, phone]}
           />
         </div>
 
