@@ -48,7 +48,7 @@ FormInput.propTypes = {
   }).isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired,
+    error: PropTypes.string,
   }).isRequired,
 };
 
