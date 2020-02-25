@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { Form as ReduxForm, Field, reduxForm } from 'redux-form';
 import personnummer from 'personnummer';
+import isEmail from 'validator/lib/isEmail';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
 
 const required = (value) => (value || typeof value === 'number' ? undefined : 'Required');
 const ssn = (value) => (personnummer.valid(value) ? undefined : 'Invalid ssn'); // for test use 198507099805
+const email = (value) => (isEmail(value) ? undefined : 'Invalid email');
 
 const Form = ({
   submitting,
@@ -54,7 +56,7 @@ const Form = ({
             id="email"
             label="Email address"
             placeholder="Email address"
-            validate={[required]}
+            validate={[required, email]}
           />
         </div>
 
