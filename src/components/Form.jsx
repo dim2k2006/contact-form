@@ -9,11 +9,12 @@ import {
   reduxForm,
   getFormValues,
 } from 'redux-form';
+import { withProps } from 'recompose';
 import personnummer from 'personnummer';
 import isEmail from 'validator/lib/isEmail';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
-import { saveFormValues } from '../utils';
+import { saveFormValues, loadFormValues, resetFormValues } from '../utils';
 import config from '../config';
 
 const form = get(config, 'form');
@@ -34,6 +35,8 @@ const Form = ({
   }, [values]);
 
   const onSubmit = () => {
+    resetFormValues(form);
+
     console.log('Success');
   };
 
@@ -104,5 +107,10 @@ Form.propTypes = {
 export default flow(
   reduxForm({
     form,
+  }),
+  withProps(() => {
+    const initialValues = loadFormValues(form);
+
+    return { initialValues };
   }),
 )(Form);
