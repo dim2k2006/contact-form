@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 const FormInput = ({
   id,
@@ -14,25 +15,36 @@ const FormInput = ({
     onBlur,
   },
   meta: { touched, error },
-}) => (
-  <label className="d-block" htmlFor={id}>
-    <div className="mb-1">{label}</div>
+}) => {
+  const isInvalid = touched && !!error;
+  const isValid = touched && !error;
 
-    <input
-      id={id}
-      type={type}
-      name={name}
-      className="form-control"
-      placeholder={placeholder}
-      value={value}
-      onFocus={onFocus}
-      onChange={onChange}
-      onBlur={onBlur}
-    />
+  const inputClass = cn({
+    'form-control': true,
+    'is-invalid': isInvalid,
+    'is-valid': isValid,
+  });
 
-    {touched && ((error && <div className="invalid-feedback">{error}</div>))}
-  </label>
-);
+  return (
+    <label className="d-block" htmlFor={id}>
+      <div className="mb-1">{label}</div>
+
+      <input
+        id={id}
+        type={type}
+        name={name}
+        className={inputClass}
+        placeholder={placeholder}
+        value={value}
+        onFocus={onFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+
+      {isInvalid && (<div className="invalid-feedback">{error}</div>)}
+    </label>
+  );
+};
 
 FormInput.propTypes = {
   id: PropTypes.string.isRequired,
