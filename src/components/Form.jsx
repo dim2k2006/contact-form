@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
-import { Form as ReduxForm, Field, reduxForm } from 'redux-form';
+import get from 'lodash/get';
+import { useSelector } from 'react-redux';
+import {
+  Form as ReduxForm,
+  Field,
+  reduxForm,
+  getFormValues,
+} from 'redux-form';
 import personnummer from 'personnummer';
 import isEmail from 'validator/lib/isEmail';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
+import { saveFormValues } from '../utils';
+import config from '../config';
+
+const form = get(config, 'form');
 
 const required = (value) => (value || typeof value === 'number' ? undefined : 'Required');
 const ssn = (value) => (personnummer.valid(value) ? undefined : 'Invalid ssn'); // for test use 198507099805
@@ -16,6 +27,12 @@ const Form = ({
   submitting,
   handleSubmit,
 }) => {
+  const values = useSelector(getFormValues(form));
+
+  useEffect(() => {
+    saveFormValues(values, form);
+  }, [values]);
+
   const onSubmit = () => {
     console.log('Success');
   };
@@ -86,6 +103,6 @@ Form.propTypes = {
 
 export default flow(
   reduxForm({
-    form: 'contact',
+    form,
   }),
 )(Form);
