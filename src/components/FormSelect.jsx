@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import get from 'lodash/get';
 import { v4 as uuidv4 } from 'uuid';
+import cn from 'classnames';
 
 const fetchCountries = async () => {
   const response = await axios.get('https://restcountries.eu/rest/v2/all');
@@ -36,6 +37,15 @@ const FormSelect = ({
     fetchData();
   }, []);
 
+  const isInvalid = touched && !!error;
+  const isValid = touched && !error;
+
+  const inputClass = cn({
+    'form-control': true,
+    'is-invalid': isInvalid,
+    'is-valid': isValid,
+  });
+
   return (
     <label className="d-block" htmlFor={id}>
       <div className="mb-1">{label}</div>
@@ -47,7 +57,7 @@ const FormSelect = ({
         onFocus={onFocus}
         onChange={onChange}
         onBlur={onBlur}
-        className="form-control"
+        className={inputClass}
       >
         <option value=""> </option>
 
