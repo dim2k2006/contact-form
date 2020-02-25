@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
 import { Form as ReduxForm, Field, reduxForm } from 'redux-form';
+import personnummer from 'personnummer';
 import FormInput from './FormInput';
 import FormSelect from './FormSelect';
+
+const required = (value) => (value || typeof value === 'number' ? undefined : 'Required');
+const ssn = (value) => (personnummer.valid(value) ? undefined : 'Invalid ssn'); // for test use 198507099805
 
 const Form = ({
   submitting,
@@ -26,6 +30,7 @@ const Form = ({
             id="ssn"
             label="Social security number"
             placeholder="Social security number"
+            validate={[required, ssn]}
           />
         </div>
 
@@ -37,6 +42,7 @@ const Form = ({
             id="phone"
             label="Phone number"
             placeholder="Phone number"
+            validate={[required]}
           />
         </div>
 
@@ -48,6 +54,7 @@ const Form = ({
             id="email"
             label="Email address"
             placeholder="Email address"
+            validate={[required]}
           />
         </div>
 
@@ -57,6 +64,7 @@ const Form = ({
             component={FormSelect}
             id="country"
             label="Country"
+            validate={[required]}
           />
         </div>
 
