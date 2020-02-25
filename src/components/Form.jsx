@@ -16,8 +16,8 @@ const Form = ({
   submitting,
   handleSubmit,
 }) => {
-  const onSubmit = (values) => {
-    console.log('values:', values);
+  const onSubmit = () => {
+    console.log('Success');
   };
 
   return (
