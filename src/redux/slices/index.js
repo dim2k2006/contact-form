@@ -1,8 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { reducer as formReducer } from 'redux-form';
 
-const reducer = combineReducers({
+import formSubmittingState, { actions as formSubmittingStateActions } from './formSubmittingState';
+
+
+export default combineReducers({
   form: formReducer,
+  formSubmittingState,
 });
 
-export default reducer;
+const actions = {
+  ...formSubmittingStateActions,
+};
+
+export { actions };
