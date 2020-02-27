@@ -40,7 +40,7 @@ export const submitForm = (data, resetFn) => (dispatch) => {
 
       setTimeout(() => {
         dispatch(formSubmitReset());
-      }, 8000);
+      }, 5000);
     })
     .catch(() => {
       dispatch(formSubmitFailure());
