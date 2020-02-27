@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
-import Form from './Form';
+import Layout from './Layout';
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -9,7 +9,7 @@ const Root = ({ store }) => (
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-sm-6">
-            <Form />
+            <Layout />
           </div>
         </div>
       </div>
