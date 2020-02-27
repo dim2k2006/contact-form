@@ -14,6 +14,9 @@ const formSubmittingState = createSlice({
     formSubmitFailure() {
       return 'failed';
     },
+    formSubmitReset() {
+      return 'none';
+    },
   },
 });
 
@@ -21,6 +24,7 @@ const {
   formSubmitRequest,
   formSubmitSuccess,
   formSubmitFailure,
+  formSubmitReset,
 } = formSubmittingState.actions;
 
 export const submitForm = (data, resetFn) => (dispatch) => {
@@ -28,9 +32,15 @@ export const submitForm = (data, resetFn) => (dispatch) => {
 
   return api.submitForm()
     .then(() => {
+      console.log('Success');
+
       dispatch(formSubmitSuccess());
 
       resetFn();
+
+      setTimeout(() => {
+        dispatch(formSubmitReset());
+      }, 8000);
     })
     .catch(() => {
       dispatch(formSubmitFailure());

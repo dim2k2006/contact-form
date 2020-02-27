@@ -3,7 +3,6 @@ import { reducer as formReducer } from 'redux-form';
 
 import formSubmittingState, { actions as formSubmittingStateActions } from './formSubmittingState';
 
-
 export default combineReducers({
   form: formReducer,
   formSubmittingState,
