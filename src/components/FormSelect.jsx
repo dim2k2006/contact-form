@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import get from 'lodash/get';
 import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
-
-const fetchCountries = async () => {
-  const response = await axios.get('https://restcountries.eu/rest/v2/all');
-
-  return get(response, 'data', []);
-};
+import api from '../api';
 
 const FormSelect = ({
   id,
@@ -27,7 +20,7 @@ const FormSelect = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const countries = await fetchCountries();
+      const countries = await api.fetchCountries();
       const newCountries = countries
         .map((country) => ({ id: uuidv4(), name: country.name, value: country.alpha2Code }));
 
