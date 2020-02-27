@@ -116,8 +116,6 @@ export default flow(
   withProps(() => {
     const initialValues = loadFormValues(form);
 
-    console.log('initialValues:', initialValues);
-
     return { initialValues };
   }),
 )(Form);
